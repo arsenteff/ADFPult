@@ -166,11 +166,13 @@ uint8_t SignalBligniyOrDalniyTest( void )
 {
   static uint8_t stateMarker = 0;
 
+  if ( Status.Shassy )
+    Status.MarkerActive = 0;
+
   if ( ( Status.Dalniy && Status.Bligniy ) || ( !Status.Bligniy && Status.Dalniy ) )
     {
       //Дальний, выключить светодиод
       StateReset( pinSvetodiod );
-      Status.MarkerActive = 0;
       return 1;
     }
   else if ( ( Status.Bligniy && !Status.Dalniy ) )
@@ -194,7 +196,6 @@ uint8_t SignalBligniyOrDalniyTest( void )
 
     }
 
-    Status.MarkerActive = 0;
     StateReset( pinSvetodiod );
     return 1;
 

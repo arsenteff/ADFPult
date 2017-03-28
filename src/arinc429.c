@@ -134,7 +134,7 @@ Arinc429Timer_Initialization (void)
   /* Initializes the TIMER Counter */
   init.TIMER_IniCounter = 0x00000000;
   init.TIMER_Prescaler = CFG_CPU_CLOCK / 1000000;
-  init.TIMER_Period = TIMER_TIME_PERIOD_100_MS;
+  init.TIMER_Period = TIMER_TIME_PERIOD_160_MS;
   init.TIMER_CounterMode = TIMER_CntMode_ClkFixedDir;
   init.TIMER_CounterDirection = TIMER_CntDir_Up;
   init.TIMER_EventSource = TIMER_EvSrc_None;

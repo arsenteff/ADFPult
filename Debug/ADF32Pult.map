@@ -2638,7 +2638,7 @@ LOAD d:/program/eclipse_arm/tools/yagarto-20121222/bin/../lib/gcc/arm-none-eabi/
 LOAD d:/program/eclipse_arm/tools/yagarto-20121222/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/lib/thumb/v6m\libc.a
 END GROUP
 
-.text           0x00000000     0x3540
+.text           0x00000000     0x3548
  *(.isr_vector)
  .isr_vector    0x00000000       0xc0 ./1986BE1T/CMSIS/CM1/DeviceSupport/MDR1986VE1T/startup/gcc/startup_MDR1986VE1T.o
                 0x00000000                __isr_vector
@@ -2764,177 +2764,178 @@ END GROUP
                 0x000019dc       0x74 ./src/signal.o
                 0x000019dc                SignalMarkerTest
  .text.SignalBligniyOrDalniyTest
-                0x00001a50       0xf8 ./src/signal.o
+                0x00001a50       0xfc ./src/signal.o
                 0x00001a50                SignalBligniyOrDalniyTest
  .text.SignalDPRSTest
-                0x00001b48       0x74 ./src/signal.o
-                0x00001b48                SignalDPRSTest
+                0x00001b4c       0x74 ./src/signal.o
+                0x00001b4c                SignalDPRSTest
  .text.StartsMenuMain
-                0x00001bbc      0x128 ./src/starts.o
-                0x00001bbc                StartsMenuMain
+                0x00001bc0      0x128 ./src/starts.o
+                0x00001bc0                StartsMenuMain
  .text.StartsStringOut
-                0x00001ce4       0x44 ./src/starts.o
+                0x00001ce8       0x44 ./src/starts.o
  .text.StateInit
-                0x00001d28      0x10c ./src/state.o
-                0x00001d28                StateInit
+                0x00001d2c      0x10c ./src/state.o
+                0x00001d2c                StateInit
  .text.StatePerekluchatelDataGet
-                0x00001e34       0xc0 ./src/state.o
-                0x00001e34                StatePerekluchatelDataGet
+                0x00001e38       0xc0 ./src/state.o
+                0x00001e38                StatePerekluchatelDataGet
  .text.StateGet
-                0x00001ef4       0xa4 ./src/state.o
-                0x00001ef4                StateGet
+                0x00001ef8       0xa4 ./src/state.o
+                0x00001ef8                StateGet
  .text.StateSet
-                0x00001f98       0x7c ./src/state.o
-                0x00001f98                StateSet
+                0x00001f9c       0x7c ./src/state.o
+                0x00001f9c                StateSet
  .text.StateReset
-                0x00002014       0x80 ./src/state.o
-                0x00002014                StateReset
+                0x00002018       0x80 ./src/state.o
+                0x00002018                StateReset
  .text.NVIC_EnableIRQ
-                0x00002094       0x2c ./src/timer.o
+                0x00002098       0x2c ./src/timer.o
  .text.TimerTime_Initialization
-                0x000020c0       0x88 ./src/timer.o
-                0x000020c0                TimerTime_Initialization
+                0x000020c4       0x88 ./src/timer.o
+                0x000020c4                TimerTime_Initialization
  .text.Timer1_IRQHandler
-                0x00002148       0xe4 ./src/timer.o
-                0x00002148                Timer1_IRQHandler
- .text.TimeGet  0x0000222c       0x14 ./src/timer.o
-                0x0000222c                TimeGet
+                0x0000214c       0xe4 ./src/timer.o
+                0x0000214c                Timer1_IRQHandler
+ .text.TimeGet  0x00002230       0x14 ./src/timer.o
+                0x00002230                TimeGet
  .text.TimeInterval
-                0x00002240       0x1c ./src/timer.o
-                0x00002240                TimeInterval
+                0x00002244       0x1c ./src/timer.o
+                0x00002244                TimeInterval
  .text.SysTick_Handler
-                0x0000225c       0x14 ./Periph/LCD.o
-                0x0000225c                SysTick_Handler
+                0x00002260       0x14 ./Periph/LCD.o
+                0x00002260                SysTick_Handler
  .text.NVIC_EnableIRQ
-                0x00002270       0x2c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
+                0x00002274       0x2c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
  .text.NVIC_DisableIRQ
-                0x0000229c       0x2c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
+                0x000022a0       0x2c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
  .text.USB_EP_Idle
-                0x000022c8       0x68 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
-                0x000022c8                USB_EP_Idle
+                0x000022cc       0x68 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
+                0x000022cc                USB_EP_Idle
  .text.USB_EP_Stall
-                0x00002330       0x78 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
-                0x00002330                USB_EP_Stall
+                0x00002334       0x78 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
+                0x00002334                USB_EP_Stall
  .text.USB_EP_dispatchEvent
-                0x000023a8      0x400 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
-                0x000023a8                USB_EP_dispatchEvent
+                0x000023ac      0x400 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
+                0x000023ac                USB_EP_dispatchEvent
  .text.USB_EP_sendInDataPortion
-                0x000027a8       0xb0 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
+                0x000027ac       0xb0 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
  .text.USB_EP_SetReady
-                0x00002858       0x40 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
+                0x0000285c       0x40 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
  .text.USB_DeviceReset
-                0x00002898       0x18 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
-                0x00002898                USB_DeviceReset
+                0x0000289c       0x18 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
+                0x0000289c                USB_DeviceReset
  .text.USB_DeviceDispatchEvent
-                0x000028b0       0x88 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
-                0x000028b0                USB_DeviceDispatchEvent
+                0x000028b4       0x88 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
+                0x000028b4                USB_DeviceDispatchEvent
  .text.USB_IRQHandler
-                0x00002938        0xc ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
-                0x00002938                USB_IRQHandler
+                0x0000293c        0xc ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
+                0x0000293c                USB_IRQHandler
  .text.ADC1_Cmd
-                0x00002944       0x3c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_adc.o
-                0x00002944                ADC1_Cmd
+                0x00002948       0x3c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_adc.o
+                0x00002948                ADC1_Cmd
  .text.PORT_Init
-                0x00002980      0x18c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_port.o
-                0x00002980                PORT_Init
+                0x00002984      0x18c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_port.o
+                0x00002984                PORT_Init
  .text.RST_CLK_PCLKcmd
-                0x00002b0c       0x3c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_rst_clk.o
-                0x00002b0c                RST_CLK_PCLKcmd
+                0x00002b10       0x3c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_rst_clk.o
+                0x00002b10                RST_CLK_PCLKcmd
  .text.TIMER_CntInit
-                0x00002b48       0x70 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_timer.o
-                0x00002b48                TIMER_CntInit
+                0x00002b4c       0x70 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_timer.o
+                0x00002b4c                TIMER_CntInit
  .text.TIMER_Cmd
-                0x00002bb8       0x3c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_timer.o
-                0x00002bb8                TIMER_Cmd
+                0x00002bbc       0x3c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_timer.o
+                0x00002bbc                TIMER_Cmd
  .text.TIMER_ITConfig
-                0x00002bf4       0x3c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_timer.o
-                0x00002bf4                TIMER_ITConfig
+                0x00002bf8       0x3c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_timer.o
+                0x00002bf8                TIMER_ITConfig
  .text.TIMER_BRGInit
-                0x00002c30       0xec ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_timer.o
-                0x00002c30                TIMER_BRGInit
+                0x00002c34       0xec ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_timer.o
+                0x00002c34                TIMER_BRGInit
  .text.USB_GetSEPxCTRL
-                0x00002d1c       0x24 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
-                0x00002d1c                USB_GetSEPxCTRL
+                0x00002d20       0x24 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
+                0x00002d20                USB_GetSEPxCTRL
  .text.USB_SetSEPxCTRL
-                0x00002d40       0x4c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
-                0x00002d40                USB_SetSEPxCTRL
+                0x00002d44       0x4c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
+                0x00002d44                USB_SetSEPxCTRL
  .text.USB_GetSEPxSTS
-                0x00002d8c       0x28 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
-                0x00002d8c                USB_GetSEPxSTS
+                0x00002d90       0x28 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
+                0x00002d90                USB_GetSEPxSTS
  .text.USB_GetSEPxTS
-                0x00002db4       0x2c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
-                0x00002db4                USB_GetSEPxTS
+                0x00002db8       0x2c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
+                0x00002db8                USB_GetSEPxTS
  .text.USB_GetSIS
-                0x00002de0       0x18 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
-                0x00002de0                USB_GetSIS
+                0x00002de4       0x18 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
+                0x00002de4                USB_GetSIS
  .text.USB_SetSIS
-                0x00002df8       0x1c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
-                0x00002df8                USB_SetSIS
+                0x00002dfc       0x1c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
+                0x00002dfc                USB_SetSIS
  .text.USB_GetSEPxRXFD
-                0x00002e14       0x24 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
-                0x00002e14                USB_GetSEPxRXFD
+                0x00002e18       0x24 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
+                0x00002e18                USB_GetSEPxRXFD
  .text.USB_GetSEPxRXFDC
-                0x00002e38       0x2c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
-                0x00002e38                USB_GetSEPxRXFDC
+                0x00002e3c       0x2c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
+                0x00002e3c                USB_GetSEPxRXFDC
  .text.USB_SetSEPxRXFC
-                0x00002e64       0x2c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
-                0x00002e64                USB_SetSEPxRXFC
+                0x00002e68       0x2c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
+                0x00002e68                USB_SetSEPxRXFC
  .text.USB_SetSEPxTXFD
-                0x00002e90       0x2c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
-                0x00002e90                USB_SetSEPxTXFD
+                0x00002e94       0x2c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
+                0x00002e94                USB_SetSEPxTXFD
  .text.USB_SetSEPxTXFDC
-                0x00002ebc       0x2c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
-                0x00002ebc                USB_SetSEPxTXFDC
+                0x00002ec0       0x2c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
+                0x00002ec0                USB_SetSEPxTXFDC
  .text.USB_SEPxToggleEPDATASEQ
-                0x00002ee8       0x3c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
-                0x00002ee8                USB_SEPxToggleEPDATASEQ
- .text          0x00002f24       0x64 ./1986BE1T/CMSIS/CM1/DeviceSupport/MDR1986VE1T/startup/gcc/startup_MDR1986VE1T.o
-                0x00002f24                _start
-                0x00002f28                Reset_Handler
-                0x00002f84                EXT_INT1_IRQHandler
-                0x00002f84                PendSV_Handler
-                0x00002f84                NMI_Handler
-                0x00002f84                UART1_IRQHandler
-                0x00002f84                ARINC429T2_IRQHandler
-                0x00002f84                POWER_IRQHandler
-                0x00002f84                BUSY_IRQHandler
-                0x00002f84                Timer3_IRQHandler
-                0x00002f84                MIL_STD_1553B1_IRQHandler
-                0x00002f84                CAN1_IRQHandler
-                0x00002f84                ARINC429T4_IRQHandler
-                0x00002f84                UART2_IRQHandler
-                0x00002f84                SSP3_IRQHandler
-                0x00002f84                EXT_INT2_IRQHandler
-                0x00002f84                Default_Handler
-                0x00002f84                BKP_IRQHandler
-                0x00002f84                ADC_IRQHandler
-                0x00002f84                SSP1_IRQHandler
-                0x00002f84                EXT_INT3_IRQHandler
-                0x00002f84                ARINC429T3_IRQHandler
-                0x00002f84                EXT_INT4_IRQHandler
-                0x00002f84                SVC_Handler
-                0x00002f84                ARINC429T1_IRQHandler
-                0x00002f84                WWDG_IRQHandler
-                0x00002f84                MIL_STD_1553B2_IRQHandler
-                0x00002f84                SSP2_IRQHandler
-                0x00002f84                DMA_IRQHandler
-                0x00002f84                CAN2_IRQHandler
-                0x00002f84                Timer4_IRQHandler
-                0x00002f84                ETHERNET_IRQHandler
+                0x00002eec       0x3c ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.o
+                0x00002eec                USB_SEPxToggleEPDATASEQ
+ .text          0x00002f28       0x64 ./1986BE1T/CMSIS/CM1/DeviceSupport/MDR1986VE1T/startup/gcc/startup_MDR1986VE1T.o
+                0x00002f28                _start
+                0x00002f2c                Reset_Handler
+                0x00002f88                EXT_INT1_IRQHandler
+                0x00002f88                PendSV_Handler
+                0x00002f88                NMI_Handler
+                0x00002f88                UART1_IRQHandler
+                0x00002f88                ARINC429T2_IRQHandler
+                0x00002f88                POWER_IRQHandler
+                0x00002f88                BUSY_IRQHandler
+                0x00002f88                Timer3_IRQHandler
+                0x00002f88                MIL_STD_1553B1_IRQHandler
+                0x00002f88                CAN1_IRQHandler
+                0x00002f88                ARINC429T4_IRQHandler
+                0x00002f88                UART2_IRQHandler
+                0x00002f88                SSP3_IRQHandler
+                0x00002f88                EXT_INT2_IRQHandler
+                0x00002f88                Default_Handler
+                0x00002f88                BKP_IRQHandler
+                0x00002f88                ADC_IRQHandler
+                0x00002f88                SSP1_IRQHandler
+                0x00002f88                EXT_INT3_IRQHandler
+                0x00002f88                ARINC429T3_IRQHandler
+                0x00002f88                EXT_INT4_IRQHandler
+                0x00002f88                SVC_Handler
+                0x00002f88                ARINC429T1_IRQHandler
+                0x00002f88                WWDG_IRQHandler
+                0x00002f88                MIL_STD_1553B2_IRQHandler
+                0x00002f88                SSP2_IRQHandler
+                0x00002f88                DMA_IRQHandler
+                0x00002f88                CAN2_IRQHandler
+                0x00002f88                Timer4_IRQHandler
+                0x00002f88                ETHERNET_IRQHandler
  .text.SystemCoreClockUpdate
-                0x00002f88       0xcc ./1986BE1T/CMSIS/CM1/DeviceSupport/MDR1986VE1T/startup/system_MDR1986VE1T.o
-                0x00002f88                SystemCoreClockUpdate
+                0x00002f8c       0xcc ./1986BE1T/CMSIS/CM1/DeviceSupport/MDR1986VE1T/startup/system_MDR1986VE1T.o
+                0x00002f8c                SystemCoreClockUpdate
  .text.SystemInit
-                0x00003054       0x4c ./1986BE1T/CMSIS/CM1/DeviceSupport/MDR1986VE1T/startup/system_MDR1986VE1T.o
-                0x00003054                SystemInit
- .text          0x000030a0       0x9c d:/program/eclipse_arm/tools/yagarto-20121222/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb/v6m\libgcc.a(_udivsi3.o)
-                0x000030a0                __aeabi_uidiv
-                0x000030a0                __udivsi3
-                0x00003128                __aeabi_uidivmod
- .text          0x0000313c        0x4 d:/program/eclipse_arm/tools/yagarto-20121222/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb/v6m\libgcc.a(_dvmd_tls.o)
-                0x0000313c                __aeabi_idiv0
-                0x0000313c                __aeabi_ldiv0
- .text.__stub   0x00003140       0x20 linker stubs
+                0x00003058       0x4c ./1986BE1T/CMSIS/CM1/DeviceSupport/MDR1986VE1T/startup/system_MDR1986VE1T.o
+                0x00003058                SystemInit
+ .text          0x000030a4       0x9c d:/program/eclipse_arm/tools/yagarto-20121222/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb/v6m\libgcc.a(_udivsi3.o)
+                0x000030a4                __aeabi_uidiv
+                0x000030a4                __udivsi3
+                0x0000312c                __aeabi_uidivmod
+ .text          0x00003140        0x4 d:/program/eclipse_arm/tools/yagarto-20121222/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb/v6m\libgcc.a(_dvmd_tls.o)
+                0x00003140                __aeabi_idiv0
+                0x00003140                __aeabi_ldiv0
+ *fill*         0x00003144        0x4 
+ .text.__stub   0x00003148       0x20 linker stubs
  *(.init)
  *(.fini)
  *crtbegin.o(.ctors)
@@ -2949,71 +2950,71 @@ END GROUP
  *(.dtors)
  *(.rodata*)
  .rodata.ControlsTest
-                0x00003160       0x30 ./src/controls.o
+                0x00003168       0x30 ./src/controls.o
  .rodata.IndikatorSegmentSymbol
-                0x00003190       0x48 ./src/indikator.o
-                0x00003190                IndikatorSegmentSymbol
+                0x00003198       0x48 ./src/indikator.o
+                0x00003198                IndikatorSegmentSymbol
  .rodata.SignalSet
-                0x000031d8       0x1c ./src/signal.o
+                0x000031e0       0x1c ./src/signal.o
  .rodata.StartsStringADF351
-                0x000031f4        0x8 ./src/starts.o
-                0x000031f4                StartsStringADF351
- .rodata.StartsStringADF353
                 0x000031fc        0x8 ./src/starts.o
-                0x000031fc                StartsStringADF353
- .rodata.StartsStringADF40
+                0x000031fc                StartsStringADF351
+ .rodata.StartsStringADF353
                 0x00003204        0x8 ./src/starts.o
-                0x00003204                StartsStringADF40
- .rodata.StartsStringOFF
+                0x00003204                StartsStringADF353
+ .rodata.StartsStringADF40
                 0x0000320c        0x8 ./src/starts.o
-                0x0000320c                StartsStringOFF
- .rodata.StartsString88888
+                0x0000320c                StartsStringADF40
+ .rodata.StartsStringOFF
                 0x00003214        0x8 ./src/starts.o
-                0x00003214                StartsString88888
+                0x00003214                StartsStringOFF
+ .rodata.StartsString88888
+                0x0000321c        0x8 ./src/starts.o
+                0x0000321c                StartsString88888
  .rodata.StartsString0123456789
-                0x0000321c       0x14 ./src/starts.o
-                0x0000321c                StartsString0123456789
- .rodata        0x00003230      0x168 ./src/state.o
+                0x00003224       0x14 ./src/starts.o
+                0x00003224                StartsString0123456789
+ .rodata        0x00003238      0x168 ./src/state.o
  .rodata.ADFStateOutputPins
-                0x00003398       0x9c ./src/state.o
-                0x00003398                ADFStateOutputPins
+                0x000033a0       0x9c ./src/state.o
+                0x000033a0                ADFStateOutputPins
  .rodata.ADFStateInputPins
-                0x00003434       0xd8 ./src/state.o
-                0x00003434                ADFStateInputPins
+                0x0000343c       0xd8 ./src/state.o
+                0x0000343c                ADFStateInputPins
  .rodata.TableIndikatorHG
-                0x0000350c       0x14 ./src/timer.o
+                0x00003514       0x14 ./src/timer.o
  .rodata.TableDlitelnostSkwagnosti
-                0x00003520        0x8 ./src/timer.o
+                0x00003528        0x8 ./src/timer.o
  .rodata.USB_EP_dispatchEvent
-                0x00003528       0x18 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
+                0x00003530       0x18 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.o
  *(.eh_frame*)
 
-.glue_7         0x00003540        0x0
+.glue_7         0x00003548        0x0
  .glue_7        0x00000000        0x0 linker stubs
 
-.glue_7t        0x00003540        0x0
+.glue_7t        0x00003548        0x0
  .glue_7t       0x00000000        0x0 linker stubs
 
-.vfp11_veneer   0x00003540        0x0
+.vfp11_veneer   0x00003548        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x00003540        0x0
+.v4_bx          0x00003548        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x00003540        0x0
+.iplt           0x00003548        0x0
  .iplt          0x00000000        0x0 ./src/adc.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x00003540                __exidx_start = .
+                0x00003548                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00003540                __exidx_end = .
-                0x00003540                . = ALIGN (0x4)
-                0x00003540                __etext = .
+                0x00003548                __exidx_end = .
+                0x00003548                . = ALIGN (0x4)
+                0x00003548                __etext = .
 
-.data           0x20000000       0x38 load address 0x00003540
+.data           0x20000000       0x38 load address 0x00003548
                 0x20000000                __data_start__ = .
  *(vtable)
  *(.data*)
@@ -3052,12 +3053,12 @@ END GROUP
  *(.jcr*)
                 0x20000038                . = ALIGN (0x4)
                 0x20000038                __data_end__ = .
-                0x00003578                __edata = (__etext + SIZEOF (.data))
+                0x00003580                __edata = (__etext + SIZEOF (.data))
 
-.igot.plt       0x20000038        0x0 load address 0x00003578
+.igot.plt       0x20000038        0x0 load address 0x00003580
  .igot.plt      0x00000000        0x0 ./src/adc.o
 
-.ramfunc        0x20100000      0x548 load address 0x00003578
+.ramfunc        0x20100000      0x548 load address 0x00003580
                 0x20100000                __ramfunc_start__ = .
  *(.ramfunc*)
  .ramfunc       0x20100000      0x548 ./1986BE1T/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_eeprom.o
@@ -3072,10 +3073,10 @@ END GROUP
                 0x20100548                . = ALIGN (0x4)
                 0x20100548                __ramfunc_end__ = .
 
-.rel.dyn        0x20100548        0x0 load address 0x00003ac0
+.rel.dyn        0x20100548        0x0 load address 0x00003ac8
  .rel.iplt      0x00000000        0x0 ./src/adc.o
 
-.bss            0x20000038      0x1d4 load address 0x00003578
+.bss            0x20000038      0x1d4 load address 0x00003580
                 0x20000038                . = ALIGN (0x4)
                 0x20000038                __bss_start__ = .
  *(.bss*)
