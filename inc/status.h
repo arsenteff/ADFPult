@@ -60,6 +60,7 @@ typedef struct
   unsigned DPRSAutomat		: 1;
   unsigned IndentifikatorPult	: 2;
   unsigned FunctionalControl	: 1;
+  unsigned DayOrNight		: 1;
 }
 Status_t;
 

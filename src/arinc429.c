@@ -22,6 +22,7 @@ uint32_t Arinc429ReceiverWords = 0;
 uint32_t Arinc429ReceiverData = 0;
 uint32_t Arinc429TransmitterWords = 0;
 uint32_t Arinc429TransmitterData = 0;
+uint32_t Arinc429TransmitterBligniyData = 0;
 
 
 void
@@ -32,6 +33,7 @@ void
 Arinc429Rx_Initialization (void);
 void
 Arinc429Port_Initialization (void);
+
 
 void Arinc429Init( void )
 {
@@ -163,7 +165,11 @@ void ARINC429_TRANSMITTER_IRQHandler (void)
 
   //Отправить данные в 1 и 2 канал
   MDR_ARINC429T->DATA1_T = Arinc429TransmitterData;
-  //MDR_ARINC429T->DATA2_T = Arinc429TransmitterData;
+
+  if ( CFG_ADFPultType == CFG_PULT_ADF_353 )
+    {
+      MDR_ARINC429T->DATA1_T = Arinc429TransmitterBligniyData;
+    }
 
   Arinc429TransmitterWords++;
 
@@ -215,13 +221,29 @@ ARINC429R_IRQHandler (void)
       while (( MDR_ARINC429R->STATUS1 & 0x01 ) != 0 )
 	{
 	  temp = MDR_ARINC429R->DATA_R;
-	  if ( ( temp & 0xFF ) == ADF_ARINC429_LABEL_FRAQUENCY )
+	  address = temp;
+
+	  if ( CFG_ADFPultType == CFG_PULT_ADF_40 )
 	    {
-	      if ( arincDataOld == temp )
+	      if ( address == ADF_ARINC429_LABEL_FRAQUENCY_DISTANT )
 		{
-		  Arinc429ReceiverData = temp;
+		  if ( arincDataOld == temp )
+		    {
+		      Arinc429ReceiverData = temp;
+		    }
+		  arincDataOld = temp;
 		}
-		arincDataOld = temp;
+	    }
+	  else if ( CFG_ADFPultType == CFG_PULT_ADF_353 )
+	    {
+	      if ( address == ADF_ARINC429_LABEL_FRAQUENCY_DISTANT || address == ADF_ARINC429_LABEL_FRAQUENCY_NEAREST )
+		{
+		  if ( arincDataOld == temp )
+		    {
+		      Arinc429ReceiverData = temp;
+		    }
+		  arincDataOld = temp;
+		}
 	    }
 	}
     }
@@ -237,13 +259,7 @@ void Arinc429Test ( void )
   arinc429Word32.Fraquency.Tlg = Status.TelefonOrTelegraph;
   arinc429Word32.Fraquency.CompassOrAntenna = Status.CompassOrAntenna;
   arinc429Word32.Fraquency.Reserve = 0;
-
-  fraq =   FraquencyCurrent & 1;
-  fraq +=   ( ( ( FraquencyCurrent >> 1 ) % 10 ) << 1 );
-  fraq +=   (( ( ( FraquencyCurrent >> 1 ) / 10 ) % 10 ) << 5);
-  fraq +=   (( ( ( FraquencyCurrent >> 1 ) / 100 ) % 10 ) << 9) ;
-  fraq +=   (( ( ( FraquencyCurrent >> 1 ) / 1000 ) % 10 ) << 13);
- arinc429Word32.Fraquency.Fraq = fraq;
+  arinc429Word32.Fraquency.Fraq = FraquencyToArinc429( FraquencyCurrent );
 
   if ( Status.FunctionalControl == STATUS_FUNCTIONAL_CONTROL_ON )
     {
@@ -256,6 +272,14 @@ void Arinc429Test ( void )
 
   Arinc429TransmitterData = arinc429Word32.Data;
 
+  if ( CFG_ADFPultType == CFG_PULT_ADF_353 )
+    {
+      arinc429Word32.Fraquency.Label =  ADF_ARINC429_LABEL_FRAQUENCY_NEAREST;
+      arinc429Word32.Fraquency.Fraq = FraquencyToArinc429( FraquencyCurrentBligniy );
+
+      Arinc429TransmitterBligniyData = arinc429Word32.Data;
+    }
+
   arinc429Word32.Data = Arinc429ReceiverData;
 
   //эта строка нужна для отладки пульта при отсутствии приемника АРК (не подключено к шасси)
@@ -263,6 +287,19 @@ void Arinc429Test ( void )
   arinc429Word32.Data = Arinc429TransmitterData;
 #endif
 
+  if ( CFG_ADFPultType == CFG_PULT_ADF_353 )
+    {
+      if ( arinc429Word32.Fraquency.Label == ADF_ARINC429_LABEL_FRAQUENCY_NEAREST )
+	{
+	  Status.Bligniy = 1;
+	  Status.Dalniy = 0;
+	}
+      else
+	{
+	  Status.Bligniy = 0;
+	  Status.Dalniy = 1;
+	}
+    }
 
   FraquencyInput =   ( arinc429Word32.Fraquency.Fraq & 1 ) +
 			( ( ( arinc429Word32.Fraquency.Fraq >> 1 ) & 0x0F ) << 1 ) +
@@ -281,15 +318,15 @@ void Arinc429Test ( void )
 
 }
 
-ADFArinc429Fraquency_t FraquencyToArinc429( Fraquency_t fraq )
+uint16_t FraquencyToArinc429( Fraquency_t fraq )
 {
-  ADFArinc429Fraquency_t arinc429Fraq;
+  uint16_t f = fraq;
 
-  arinc429Fraq.Fraquency_05kHz = fraq & 0x01;
-  arinc429Fraq.Fraquency_1kHz = ( fraq >> 1 ) % 10;
-  arinc429Fraq.Fraquency_10kHz = ( ( fraq >> 1 ) / 10 ) % 10;
-  arinc429Fraq.Fraquency_100kHz = ( ( fraq >> 1 ) / 100 ) % 10;
-  arinc429Fraq.Fraquency_1000kHz = ( ( fraq >> 1 ) / 1000 ) % 10;
+  f =   fraq & 1;
+  f +=   ( ( ( fraq >> 1 ) % 10 ) << 1 );
+  f +=   (( ( ( fraq >> 1 ) / 10 ) % 10 ) << 5);
+  f +=   (( ( ( fraq >> 1 ) / 100 ) % 10 ) << 9) ;
+  f +=   (( ( ( fraq >> 1 ) / 1000 ) % 10 ) << 13);
 
-  return arinc429Fraq;
+  return f;
 }

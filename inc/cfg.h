@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #define CFG_CPU_QUARTZ_MHZ 	8	//частота в МГц для икорректировки делителей настройки переферии
-#define CFG_CPU_PLL_MULL        2 	//коэффициент умножения частоты кварцевого резонатора
+#define CFG_CPU_PLL_MULL        8 	//коэффициент умножения частоты кварцевого резонатора
 #define CFG_CPU_CLOCK 		( CFG_CPU_QUARTZ_MHZ * CFG_CPU_PLL_MULL * 1000000U ) //Частота ядра в Гц
 
 #define CFG_ARINC_DIV       (CFG_CPU_PLL_MULL * CFG_CPU_QUARTZ_MHZ)  //коэффициент деления частоты ядра контроллера до 1МГц

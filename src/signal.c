@@ -10,17 +10,19 @@
 #include "state.h"
 #include "timer.h"
 #include "controls.h"
+#include "cfg.h"
 
 void SignalSet( Signal_t signal, uint8_t value);
+void SignalMarkerTest( void );
 
 
 StateDataInput_t StatusTableSignal[] =
     {
-	pinSignalBligniy, pinSignalDalniy, pinSignalShassy, pinSignalMarker,
-	pinSignalKodPult1, pinSignalKodPult2, pinSignalDPRSAutomat, pinSignalFuncControl
+	pinSignalBligniy, pinSignalDalniy, pinSignalShassy, pinSignalMarker, pinSignalKodPult1,
+	pinSignalKodPult2, pinSignalDPRSAutomat, pinSignalFuncControl, pinSignalDayOrNightADF351, pinSignalDayOrNightADF353
     };
 
-#define SIGNAL_COUNT 8 /*(sizeof(StatusTableSignal)/(sizeof StateDataInput_t))*/
+#define SIGNAL_COUNT 10 /*(sizeof(StatusTableSignal)/(sizeof StateDataInput_t))*/
 
 static Time_t TableTimeSignalOff[ SIGNAL_COUNT ];
 static Time_t TableTimeSignalOn[ SIGNAL_COUNT ];
@@ -58,29 +60,46 @@ void SignalTest ( void )
 	}
     }
 
-  if ( ControlsTimeActive( cntrlControl, TIME_100_MS ) )
+    if ( ControlsTimeActive( cntrlControl, TIME_100_MS ) )
+      {
+	Status.FunctionalControl = STATUS_FUNCTIONAL_CONTROL_ON;
+      }
+    else
+      {
+	if ( Status.FunctionalControl == STATUS_FUNCTIONAL_CONTROL_ON )
+	  ControlsTimeActiveClear( cntrlControl );
+
+	Status.FunctionalControl = STATUS_FUNCTIONAL_CONTROL_OFF;
+      }
+
+
+  if ( CFG_ADFPultType == CFG_PULT_ADF_40 )
     {
-      Status.FunctionalControl = STATUS_FUNCTIONAL_CONTROL_ON;
+      SignalTimeTest( SignalBligniy );
+      SignalTimeTest( SignalDalniy );
+      SignalTimeTest( SignalShassy );
+
+      SignalMarkerTest();
+
+      SignalTimeTest( SignalPult1 );
+      SignalTimeTest( SignalPult2 );
+      SignalTimeTest( SignalDPRSAutomat);
     }
-  else
+  else if ( CFG_ADFPultType == CFG_PULT_ADF_351 )
     {
-      if ( Status.FunctionalControl == STATUS_FUNCTIONAL_CONTROL_ON )
-	ControlsTimeActiveClear( cntrlControl );
+      SignalTimeTest( SignalBligniy );
+      SignalTimeTest( SignalDalniy );
+      SignalTimeTest( SignalShassy );
 
-      Status.FunctionalControl = STATUS_FUNCTIONAL_CONTROL_OFF;
+      SignalMarkerTest();
+
+      SignalTimeTest( SignalDPRSAutomat);
+      SignalTimeTest( SignalDayOrNightADF351 );
     }
-
-
-  SignalTimeTest( SignalBligniy );
-  SignalTimeTest( SignalDalniy );
-  SignalTimeTest( SignalShassy );
-
-  SignalMarkerTest();
-
-  SignalTimeTest( SignalPult1 );
-  SignalTimeTest( SignalPult2 );
-  SignalTimeTest( SignalDPRSAutomat);
-
+  else if ( CFG_ADFPultType == CFG_PULT_ADF_353 )
+    {
+      SignalTimeTest( SignalDayOrNightADF353 );
+    }
 }
 
 void SignalTimeTest( Signal_t signal )
@@ -137,6 +156,14 @@ void SignalSet( Signal_t signal, uint8_t value)
       Status.DPRSAutomat = value;
       break;
 
+    case SignalDayOrNightADF351 :
+      Status.DayOrNight = value;
+      break;
+
+    case SignalDayOrNightADF353 :
+      Status.DayOrNight = value;
+      break;
+
   }
 }
 
@@ -166,39 +193,48 @@ uint8_t SignalBligniyOrDalniyTest( void )
 {
   static uint8_t stateMarker = 0;
 
-  if ( Status.Shassy )
-    Status.MarkerActive = 0;
+  if ( CFG_ADFPultType == CFG_PULT_ADF_353 )
+    {
+      if ( Status.Bligniy == 1 )
+	return 0;
+      else
+	return 1;
+    }
+  if ( CFG_ADFPultType == CFG_PULT_ADF_40 )
+    {
+      if ( Status.Shassy )
+	Status.MarkerActive = 0;
 
-  if ( ( Status.Dalniy && Status.Bligniy ) || ( !Status.Bligniy && Status.Dalniy ) )
-    {
-      //Дальний, выключить светодиод
-      StateReset( pinSvetodiod );
-      return 1;
-    }
-  else if ( ( Status.Bligniy && !Status.Dalniy ) )
-    {
-      //Ближний, включить светодиод
-      StateSet( pinSvetodiod );
-      return 0;
-    }
-  else if ( ( !Status.Bligniy && !Status.Dalniy && !Status.Shassy ) )
-    {
-      if ( Status.Marker == 1 )
+      if ( ( Status.Dalniy && Status.Bligniy ) || ( !Status.Bligniy && Status.Dalniy ) )
 	{
-	  Status.MarkerActive = 1;
+	  //Дальний, выключить светодиод
+	  StateReset( pinSvetodiod );
+	  return 1;
+	}
+      else if ( ( Status.Bligniy && !Status.Dalniy ) )
+	{
+	  //Ближний, включить светодиод
 	  StateSet( pinSvetodiod );
 	  return 0;
 	}
-      else
+      else if ( ( !Status.Bligniy && !Status.Dalniy && !Status.Shassy ) )
 	{
-	  return SignalDPRSTest();
+	  if ( Status.Marker == 1 )
+	    {
+	      Status.MarkerActive = 1;
+	      StateSet( pinSvetodiod );
+	      return 0;
+	    }
+	  else
+	    {
+	      return SignalDPRSTest();
+	    }
+
 	}
 
+	StateReset( pinSvetodiod );
+	return 1;
     }
-
-    StateReset( pinSvetodiod );
-    return 1;
-
 }
 
 uint8_t SignalDPRSTest( void )

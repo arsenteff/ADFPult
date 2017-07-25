@@ -3,6 +3,7 @@
 #include "MDR1986VE1T.h"
 #include "MDR32F9Qx_rst_clk.h"
 #include "MDR32F9Qx_port.h"
+#include "cfg.h"
 
 State_t ADFStateOutput;
 State_t ADFStateInput;
@@ -16,12 +17,26 @@ StateInit( void )
 {
   PORT_InitTypeDef init;
   uint32_t pos;
+  uint32_t ADF_STATE_PINS_INPUT_COUNT;
+  const ADFStatePin_t *ADFStateInputPins;
+
+  if ( CFG_ADFPultType == CFG_PULT_ADF_353 || CFG_ADFPultType == CFG_PULT_ADF_40 )
+    {
+      ADF_STATE_PINS_INPUT_COUNT = ADF_STATE_PINS_INPUT_ADF40_COUNT;
+      ADFStateInputPins = &ADFStateInputPinsADF40;
+    }
+  else if( CFG_ADFPultType == CFG_PULT_ADF_351 )
+  {
+      ADF_STATE_PINS_INPUT_COUNT = ADF_STATE_PINS_INPUT_ADF351_COUNT;
+      ADFStateInputPins = &ADFStateInputPinsADF351;
+      RST_CLK_PCLKcmd( RST_CLK_PCLK_PORTC , ENABLE );
+  }
 
   RST_CLK_PCLKcmd( ( RST_CLK_PCLK_PORTD | RST_CLK_PCLK_PORTF | RST_CLK_PCLK_PORTB ) , ENABLE );
 
   init.PORT_FUNC        = PORT_FUNC_PORT;
   init.PORT_MODE        = PORT_MODE_DIGITAL;
-  init.PORT_SPEED       = PORT_SPEED_SLOW;
+  init.PORT_SPEED       = PORT_SPEED_MAXFAST;
   init.PORT_PULL_DOWN   = PORT_PULL_DOWN_OFF;
   init.PORT_PD_SHM      = PORT_PD_SHM_OFF;
   init.PORT_PD          = PORT_PD_DRIVER;
@@ -33,7 +48,12 @@ StateInit( void )
   for ( pos = 0; pos < ADF_STATE_PINS_INPUT_COUNT; pos++ )
   {
     init.PORT_Pin = 1 << ADFStateInputPins[ pos ].pin;
+    if ( (1 << pos == pinSignalD0) || (1 << pos == pinSignalD1) || (1 << pos == pinSignalD2) || (1 << pos == pinSignalD3) )
+      {
+	init.PORT_PD          = PORT_PD_OPEN;
+      }
     PORT_Init( ADFStateInputPins[ pos ].port , &init );
+    init.PORT_PD          = PORT_PD_DRIVER;
   }
 
   /* Configure PORT output pins */
@@ -48,6 +68,23 @@ StateInit( void )
   StateSet( ADF_STATE_PINS_OUT_ALL );
 
   return 0;
+}
+
+
+uint8_t
+StatePultDataGet( void )
+{
+  uint8_t pos = 5;
+  uint8_t data = ( ( MDR_PORTC->RXTX >> pos ) & 0x0F );
+  return data;
+}
+
+uint8_t
+StatePultAdressGet( void )
+{
+  uint8_t pos = 9;
+  uint8_t adress = ( ( MDR_PORTC->RXTX >> pos ) & 0x07 );
+  return adress;
 }
 
 uint16_t
@@ -74,6 +111,16 @@ State_t
 StateGet( State_t pinsIn )
 {
    uint32_t pos;
+   const ADFStatePin_t *ADFStateInputPins;
+
+   if ( CFG_ADFPultType == CFG_PULT_ADF_353 || CFG_ADFPultType == CFG_PULT_ADF_40 )
+     {
+       ADFStateInputPins = &ADFStateInputPinsADF40;
+     }
+   else if( CFG_ADFPultType == CFG_PULT_ADF_351 )
+   {
+       ADFStateInputPins = &ADFStateInputPinsADF351;
+   }
 
    /* Get position in array values */
    for ( pos = 0; pinsIn != 0; pos++ )

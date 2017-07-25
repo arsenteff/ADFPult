@@ -10,6 +10,7 @@
 #include "MDR32F9Qx_rst_clk.h"
 #include "MDR32F9Qx_port.h"
 #include "MDR32F9Qx_adc.h"
+#include "cfg.h"
 
 #define ADC_GALETNIK_RST_CLK_PCLK_ADC RST_CLK_PCLK_ADC
 #define ADC_GALETNIK_RST_CLK_PCLK_PORT RST_CLK_PCLK_PORTD
@@ -95,30 +96,32 @@ uint8_t ADCGaletnikValueToCanal( uint32_t value )
 {
   uint8_t canal;
 
-  if ( value == 0 )
-    canal = 1;
-  else if( value > (370-100) && value < (370+100) )
-    canal = 2;
-  else if( value > (740-100) && value < (740+100) )
-    canal = 3;
-  else if( value > (1115-100) && value < (1115+100) )
-    canal = 4;
-  else if( value > (1489-100) && value < (1489+100) )
-    canal = 5;
-  else if( value > (1860-100) && value < (1860+100) )
-    canal = 6;
-  else if( value > (2235-100) && value < (2235+100) )
-    canal = 7;
-  else if( value > (2600-100) && value < (2600+100) )
-    canal = 8;
-  else if( value > (2990-100) && value < (2990+100) )
-    canal = 9;
-  else if( value > (3350-100) && value < (3350+100) )
-    canal = 10;
-  else if( value > (3735-100) && value < (3735+100) )
-    canal = 11;
-  else if( value == 4095 )
-    canal = 12;
-
+  if ( CFG_ADFPultType == CFG_PULT_ADF_351 || CFG_ADFPultType == CFG_PULT_ADF_40 )
+    {
+      if ( value == 0 )
+	canal = 1;
+      else if( value > (370-100) && value < (370+100) )
+	canal = 2;
+      else if( value > (740-100) && value < (740+100) )
+	canal = 3;
+      else if( value > (1115-100) && value < (1115+100) )
+	canal = 4;
+      else if( value > (1489-100) && value < (1489+100) )
+	canal = 5;
+      else if( value > (1860-100) && value < (1860+100) )
+	canal = 6;
+      else if( value > (2235-100) && value < (2235+100) )
+	canal = 7;
+      else if( value > (2600-100) && value < (2600+100) )
+	canal = 8;
+      else if( value > (2990-100) && value < (2990+100) )
+	canal = 9;
+      else if( value > (3350-100) && value < (3350+100) )
+	canal = 10;
+      else if( value > (3735-100) && value < (3735+100) )
+	canal = 11;
+      else if( value == 4095 )
+	canal = 12;
+    }
   return canal;
 }

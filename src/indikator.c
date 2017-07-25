@@ -119,11 +119,11 @@ void IndikatorSegmentSet( uint8_t segmentSymbol, StateDataOutput_t segmentPin)
 void IndikatorOff ( void )
 {
   Time_t time = TimeGet();
-  TableFraquencyCurrent[ 4 ] = 0x0F;
-  TableFraquencyCurrent[ 3 ] = 0x0F;
-  TableFraquencyCurrent[ 2 ] = 0x0F;
-  TableFraquencyCurrent[ 1 ] = 0x0F;
-  TableFraquencyCurrent[ 0 ] = 0x0F;
+  TableFraquencyCurrent[ 4 ] = Symbol_OFF;
+  TableFraquencyCurrent[ 3 ] = Symbol_OFF;
+  TableFraquencyCurrent[ 2 ] = Symbol_OFF;
+  TableFraquencyCurrent[ 1 ] = Symbol_OFF;
+  TableFraquencyCurrent[ 0 ] = Symbol_OFF;
 
   while ( TimeInterval( time ) < TIME_10_MS );
 }

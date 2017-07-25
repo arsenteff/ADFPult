@@ -7,7 +7,7 @@
 typedef uint16_t MemoryPultFrequency_t;
 
 static int InterruptsSave;
-static MemoryPultFrequency_t MemoryTableFraquencyCanal[ PULT_CANAL_ALL ];
+static MemoryPultFrequency_t MemoryTableFraquencyCanal[ PULT_CANAL_ALL_MAX ];
 
 static void MemoryFraquencyCanalSaveAll( void );
 static void MemoryFraquencyCanalResaveAll( uint8_t canal, MemoryPultFrequency_t frq );
@@ -66,19 +66,19 @@ MemoryPultFrequency_t MemoryPultCanalStore (MemoryPultCanalNum_t canal, MemoryPu
         MemoryPultFrequency_t  memoryFrequency;
         int offset, step;
 
-        if (canal && (canal <= PULT_CANAL_ALL))
+        if (canal && (canal <= PULT_CANAL_ALL() ))
         {
                 step = (canal - 1);
 
                 for (offset = step;
                      offset < (PULT_CANAL_MEMORY_ADRESS_END - PULT_CANAL_MEMORY_ADRESS_START )/sizeof(MemoryPultFrequency_t);
-                     offset += ( PULT_CANAL_ALL ) )
+                     offset += ( PULT_CANAL_ALL() ) )
                 {
 			p = (memoryPtr + offset);
                         memoryFrequency = *p;
                         if (memoryFrequency == PULT_CANAL_MEMORY_DATA_EMPTY)
                         {
-                                memoryFrequency = *(memoryPtr + offset - PULT_CANAL_ALL);
+                                memoryFrequency = *(memoryPtr + offset - PULT_CANAL_ALL() );
                                 if (memoryFrequency != frequency)
                                         Memory_EEPROMWriteHalfWord ((unsigned int) p, frequency);
                                 return frequency;
@@ -104,22 +104,22 @@ MemoryPultFrequency_t MemoryPultCanalLoad( MemoryPultCanalNum_t Canal)
 
         if (Canal) {
                 p=(MemoryPultFrequency_t*)(PULT_CANAL_MEMORY_ADRESS_START+step);
-                for (; p<(MemoryPultFrequency_t *)(PULT_CANAL_MEMORY_ADRESS_END); p+=PULT_CANAL_ALL)
+                for (; p<(MemoryPultFrequency_t *)(PULT_CANAL_MEMORY_ADRESS_END); p+=PULT_CANAL_ALL() )
                 {
 		  if (*p == 0xFFFF)
 		  {
-			  d=*(p-PULT_CANAL_ALL);
+			  d=*(p-PULT_CANAL_ALL() );
 			  return d;
 		  }
                 }
-                return d=*(p-PULT_CANAL_ALL);
+                return d=*(p-PULT_CANAL_ALL() );
         }
         return d;
 }
 
 void MemoryFraquencyCanalSaveAll( void )
 {
-  for ( int i = 0; i < PULT_CANAL_ALL; i++ )
+  for ( int i = 0; i < PULT_CANAL_ALL(); i++ )
     {
       MemoryTableFraquencyCanal[ i ] = MemoryPultCanalLoad( i + 1 );
     }
@@ -127,7 +127,7 @@ void MemoryFraquencyCanalSaveAll( void )
 
 void MemoryFraquencyCanalResaveAll( uint8_t canal, MemoryPultFrequency_t frq )
 {
-  for ( int i = 1; i <= PULT_CANAL_ALL; i++ )
+  for ( int i = 1; i <= PULT_CANAL_ALL(); i++ )
     {
       if ( canal != i )
 	{
@@ -138,4 +138,44 @@ void MemoryFraquencyCanalResaveAll( uint8_t canal, MemoryPultFrequency_t frq )
 	  MemoryPultCanalStore( i , frq );
 	}
     }
+}
+
+uint8_t PULT_CANAL_COUNT( void )
+{
+  if ( CFG_ADFPultType == CFG_PULT_ADF_351 )
+    return PULT_CANAL_COUNT_ADF_351;
+  if ( CFG_ADFPultType == CFG_PULT_ADF_40 )
+    return PULT_CANAL_COUNT_ADF_40;
+  if ( CFG_ADFPultType == CFG_PULT_ADF_353 )
+    return PULT_CANAL_COUNT_ADF_353;
+}
+
+uint8_t PULT_CANAL_ALL( void )
+{
+  if ( CFG_ADFPultType == CFG_PULT_ADF_351 )
+    return PULT_CANAL_ALL_ADF_351;
+  if ( CFG_ADFPultType == CFG_PULT_ADF_40 )
+    return PULT_CANAL_ALL_ADF_40;
+  if ( CFG_ADFPultType == CFG_PULT_ADF_353 )
+    return PULT_CANAL_ALL_ADF_353;
+}
+
+uint8_t PULT_CANAL_INDIKATOR_NUMBER( void )
+{
+  if ( CFG_ADFPultType == CFG_PULT_ADF_351 )
+    return PULT_CANAL_INDIKATOR_NUMBER_ADF_351;
+  if ( CFG_ADFPultType == CFG_PULT_ADF_40 )
+    return PULT_CANAL_INDIKATOR_NUMBER_ADF_40;
+  if ( CFG_ADFPultType == CFG_PULT_ADF_353 )
+    return PULT_CANAL_INDIKATOR_NUMBER_ADF_353;
+}
+
+uint8_t PULT_CANAL_PLAVNO_NUMBER( void )
+{
+  if ( CFG_ADFPultType == CFG_PULT_ADF_351 )
+    return PULT_CANAL_PLAVNO_NUMBER_ADF_351;
+  if ( CFG_ADFPultType == CFG_PULT_ADF_40 )
+    return PULT_CANAL_PLAVNO_NUMBER_ADF_40;
+  if ( CFG_ADFPultType == CFG_PULT_ADF_353 )
+    return PULT_CANAL_PLAVNO_NUMBER_ADF_353;
 }

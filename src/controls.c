@@ -12,7 +12,7 @@
 #include "adc.h"
 
 static uint16_t Controls = 0;
-static uint8_t ControlGaletnikCanal = PULT_CANAL_PLAVNO_NUMBER;
+static uint8_t ControlGaletnikCanal = 0;
 
 Time_t TableControlsTimeActive[ CONTROLS_COUNT ];
 
@@ -96,7 +96,7 @@ uint8_t ControlsTest ( ControlsElements_t control )
 uint8_t ControlGaletnikCanalTest( void )
 {
   static Time_t time = 0;
-  static uint8_t canalPrevious = PULT_CANAL_PLAVNO_NUMBER;
+  static uint8_t canalPrevious = 0;
 
   uint8_t canalNew = ADCGaletnikValueToCanal( ADCGaletnikRead() );
   uint8_t canalCurrent = ControlGaletnikCanal;

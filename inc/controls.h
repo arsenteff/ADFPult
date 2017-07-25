@@ -25,7 +25,8 @@ typedef enum
   cntrlTelefon,
   cntrlTelegraph,
   cntrlCompass,
-  cntrlAntenna
+  cntrlAntenna,
+  cntrlDayOrNight
 }
 ControlsElements_t;
 

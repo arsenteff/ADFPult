@@ -132,7 +132,7 @@ ADFArinc429Status_t;
 extern ADFArinc429Status_t ADFArinc429Status;
 
 void ADFArinc429Init( void );
-ADFArinc429Fraquency_t FraquencyToArinc429( Fraquency_t fraq );
+uint16_t FraquencyToArinc429( Fraquency_t fraq );
 void Arinc429Test ( void );
 
 #endif //__ADF_ARINC429_H

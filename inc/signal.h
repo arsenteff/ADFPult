@@ -17,7 +17,9 @@ typedef enum
   SignalPult1  = 4,
   SignalPult2  = 5,
   SignalDPRSAutomat = 6,
-  SignalFunctionalControl = 7
+  SignalFunctionalControl = 7,
+  SignalDayOrNightADF351 = 8,
+  SignalDayOrNightADF353 = 9
 }
 Signal_t;
 

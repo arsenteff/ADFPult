@@ -6,6 +6,7 @@
 C_SRCS += \
 ../src/adc.c \
 ../src/arinc429.c \
+../src/capture.c \
 ../src/cfg.c \
 ../src/controls.c \
 ../src/cpu.c \
@@ -23,6 +24,7 @@ C_SRCS += \
 OBJS += \
 ./src/adc.o \
 ./src/arinc429.o \
+./src/capture.o \
 ./src/cfg.o \
 ./src/controls.o \
 ./src/cpu.o \
@@ -40,6 +42,7 @@ OBJS += \
 C_DEPS += \
 ./src/adc.d \
 ./src/arinc429.d \
+./src/capture.d \
 ./src/cfg.d \
 ./src/controls.d \
 ./src/cpu.d \

@@ -46,10 +46,20 @@ typedef enum
   pinSignalBligniy	  = 0x800,
   pinSignalShassy	  = 0x1000,
   pinSignalMarker	  = 0x2000,
+  pinSignalDayOrNightADF351 = 0x4000,
   pinSignalKodPult1	  = 0x4000,
+  pinSignalDPRSAutomatADF351 = 0x8000,
   pinSignalKodPult2	  = 0x8000,
   pinSignalFuncControl	  = 0x10000,
-  pinSignalDPRSAutomat	  = 0x20000
+  pinSignalDPRSAutomat	  = 0x20000,
+  pinSignalDayOrNightADF353 = 0x20000,
+  pinSignalD0 = 0x10000,
+  pinSignalD1 = 0x20000,
+  pinSignalD2 = 0x400000,
+  pinSignalD3 = 0x800000,
+  pinSignalA0 = 0x1000000,
+  pinSignalA1 = 0x2000000,
+  pinSignalA2 = 0x4000000
 }
 StateDataInput_t;
 
@@ -71,6 +81,8 @@ void StateReset( State_t portPins );
 uint32_t StateNumberADF( void );
 
 uint16_t StatePerekluchatelDataGet( void );
+uint8_t StatePultDataGet( void );
+uint8_t StatePultAdressGet( void );
 
 #endif //__ADF_STATE_H
 

@@ -12,8 +12,10 @@
 #include "memory.h"
 #include "status.h"
 #include "indikator.h"
+#include "cfg.h"
 
-uint8_t TableFraquencyCurrent[ 5 ];
+uint8_t TableFraquencyCurrent[ 8 ];
+uint8_t TableSwitchCurrent[ 8 ];
 
 /*‘ормат хранени€ частоты двоичный, но самый младший разр€д подразумевает 0,5 к√ц
  *1 - частота 0,5 к√ц
@@ -25,6 +27,7 @@ uint8_t TableFraquencyCurrent[ 5 ];
  *4364 - 2182,0 к√ц*/
 
 Fraquency_t FraquencyCurrent = 0;
+Fraquency_t FraquencyCurrentBligniy = 0;
 Fraquency_t ADFFraquencyPlavno = 0;
 Fraquency_t FraquencyInput = 0;
 
@@ -54,7 +57,7 @@ void FraquencyTest( void )
   static uint8_t boolIndikatorBrightnessSave = 0;
   static Time_t timeIndikatorBrightnessSave;
 
-  if ( ControlGaletnikCanalGet() == PULT_CANAL_PLAVNO_NUMBER )
+  if ( ControlGaletnikCanalGet() == PULT_CANAL_PLAVNO_NUMBER() )
     {
     if ( ControlsTimeActive( cntrlOnes_Plus, TIME_800_MSC ) )
       {
@@ -109,7 +112,12 @@ void FraquencyTest( void )
 	  ADFFraquencyPlavno -= 100 << 1;
 	ControlsTimeActiveClear( cntrlHundreds_Minus );
       }
+
       FraquencyCurrent = ADFFraquencyPlavno;
+      if ( CFG_ADFPultType == CFG_PULT_ADF_353 )
+	{
+	  FraquencyCurrentBligniy = ADFFraquencyPlavno;
+	}
     }
   else
     {
@@ -131,14 +139,22 @@ void FraquencyTest( void )
 	boolIndikatorBrightnessSave = 1;
       }
 
-      if ( SignalBligniyOrDalniyTest() )
-	FraquencyCurrent = MemoryPultCanalLoad( ControlGaletnikCanalGet() );
-      else
-	FraquencyCurrent = MemoryPultCanalLoad( ControlGaletnikCanalGet() + PULT_CANAL_COUNT );
+      if ( CFG_ADFPultType == CFG_PULT_ADF_40 )
+	{
+	  if ( SignalBligniyOrDalniyTest() )
+	    FraquencyCurrent = MemoryPultCanalLoad( ControlGaletnikCanalGet() );
+	  else
+	    FraquencyCurrent = MemoryPultCanalLoad( ControlGaletnikCanalGet() + PULT_CANAL_COUNT() );
+	}
+      else if ( CFG_ADFPultType == CFG_PULT_ADF_353 )
+	{
+	  FraquencyCurrent = MemoryPultCanalLoad( ControlGaletnikCanalGet() );
+	  FraquencyCurrentBligniy = MemoryPultCanalLoad( ControlGaletnikCanalGet() + PULT_CANAL_COUNT() );
+	}
 
       if ( boolIndikatorBrightnessSave == 1 && TimeInterval( timeIndikatorBrightnessSave ) > TIME_10_SEC )
 	{
-	  MemoryPultCanalStore ( PULT_CANAL_INDIKATOR_NUMBER, TimerDlitelnostSkwagnostiIndikator );
+	  MemoryPultCanalStore ( PULT_CANAL_INDIKATOR_NUMBER(), TimerDlitelnostSkwagnostiIndikator );
 	  boolIndikatorBrightnessSave = 0;
 	}
 
@@ -220,7 +236,7 @@ void FraquencyCanalWriteTest ( void )
   if ( writeStatus == 0 )
       {
 	//Ћовим первое нажатие кнопки
-	if ( ControlGaletnikCanalTest() == PULT_CANAL_PLAVNO_NUMBER && ControlsTimeActive( cntrlWriteFraquency, TIME_200_MS ) )
+	if ( ControlGaletnikCanalTest() == PULT_CANAL_PLAVNO_NUMBER() && ControlsTimeActive( cntrlWriteFraquency, TIME_200_MS ) )
 	  {
 	    writeStatus = 1;
 	    ControlsTimeActiveClear( cntrlWriteFraquency );
@@ -243,14 +259,14 @@ void FraquencyCanalWriteTest ( void )
 
       canal = ControlGaletnikCanalTest();
       //Ћовим второе нажатие кнопки
-      if ( canal != PULT_CANAL_PLAVNO_NUMBER && ControlsTimeActive( cntrlWriteFraquency, TIME_200_MS ) )
+      if ( canal != PULT_CANAL_PLAVNO_NUMBER() && ControlsTimeActive( cntrlWriteFraquency, TIME_200_MS ) )
 	{
-	  if ( canal <= PULT_CANAL_COUNT )
+	  if ( canal <= PULT_CANAL_COUNT() )
 	    {
 	      if ( SignalBligniyOrDalniyTest() )
 		MemoryPultCanalStore ( canal, ADFFraquencyPlavno );
 	      else
-		MemoryPultCanalStore ( canal + PULT_CANAL_COUNT, ADFFraquencyPlavno );
+		MemoryPultCanalStore ( canal + PULT_CANAL_COUNT(), ADFFraquencyPlavno );
 
 	    }
 	  writeStatus = 3;
@@ -266,3 +282,67 @@ void FraquencyCanalWriteTest ( void )
 
 }
 
+void FraquencyPultOut( void )
+{
+  static uint8_t boolIndikatorBrightnessSave = 0;
+  static Time_t timeIndikatorBrightnessSave;
+
+  TableFraquencyCurrent[ 4 ] = PultDataInput[ 3 ];
+  TableFraquencyCurrent[ 3 ] = PultDataInput[ 2 ];
+  TableFraquencyCurrent[ 2 ] = PultDataInput[ 1 ];
+  TableFraquencyCurrent[ 1 ] = PultDataInput[ 0 ];
+  TableFraquencyCurrent[ 0 ] = PultDataInput[ 4 ];
+
+  if ( ControlGaletnikCanalGet() == PULT_CANAL_PLAVNO_NUMBER() )
+    {
+      TableSwitchCurrent[ 0 ] = 0x00;
+      TableSwitchCurrent[ 1 ] = 0x02;
+      TableSwitchCurrent[ 2 ] = 0x00;
+      TableSwitchCurrent[ 3 ] = 0x00;
+      /*
+      TableSwitchCurrent[ 4 ] = 0x05;
+      TableSwitchCurrent[ 5 ] = 0x05;
+      TableSwitchCurrent[ 6 ] = 0x05;
+      TableSwitchCurrent[ 7 ] = 0x05;*/
+    }
+
+  if ( ControlGaletnikCanalGet() != PULT_CANAL_PLAVNO_NUMBER() )
+    {
+      if ( ControlsTimeActive( cntrlTens_Plus, TIME_800_MSC ) )
+      {
+	    if ( --TimerDlitelnostSkwagnostiIndikator < TIMER_DLITELNOST_SKWAGNOSTI_INDIKATOR_MIN )
+		   TimerDlitelnostSkwagnostiIndikator = TIMER_DLITELNOST_SKWAGNOSTI_INDIKATOR_MIN;
+	    ControlsTimeActiveClear( cntrlTens_Plus );
+	    timeIndikatorBrightnessSave = TimeGet();
+	    boolIndikatorBrightnessSave = 1;
+      }
+
+      if ( ControlsTimeActive( cntrlTens_Minus, TIME_800_MSC ) )
+      {
+	    if ( ++TimerDlitelnostSkwagnostiIndikator > TIMER_DLITELNOST_SKWAGNOSTI_INDIKATOR_MAX )
+		   TimerDlitelnostSkwagnostiIndikator = TIMER_DLITELNOST_SKWAGNOSTI_INDIKATOR_MAX;
+	    ControlsTimeActiveClear( cntrlTens_Minus );
+	    timeIndikatorBrightnessSave = TimeGet();
+	    boolIndikatorBrightnessSave = 1;
+      }
+
+      if ( CFG_ADFPultType == CFG_PULT_ADF_40 )
+	    {
+	      if ( SignalBligniyOrDalniyTest() )
+		FraquencyCurrent = MemoryPultCanalLoad( ControlGaletnikCanalGet() );
+	      else
+		FraquencyCurrent = MemoryPultCanalLoad( ControlGaletnikCanalGet() + PULT_CANAL_COUNT() );
+	    }
+      else if ( CFG_ADFPultType == CFG_PULT_ADF_353 )
+	    {
+	      FraquencyCurrent = MemoryPultCanalLoad( ControlGaletnikCanalGet() );
+	      FraquencyCurrentBligniy = MemoryPultCanalLoad( ControlGaletnikCanalGet() + PULT_CANAL_COUNT() );
+	    }
+
+      if ( boolIndikatorBrightnessSave == 1 && TimeInterval( timeIndikatorBrightnessSave ) > TIME_10_SEC )
+	    {
+	      MemoryPultCanalStore ( PULT_CANAL_INDIKATOR_NUMBER(), TimerDlitelnostSkwagnostiIndikator );
+	      boolIndikatorBrightnessSave = 0;
+	    }
+    }
+}

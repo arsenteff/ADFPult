@@ -81,9 +81,10 @@ typedef enum
 }
 FraquencySubrange_t;
 
-typedef uint32_t Fraquency_t;
+typedef uint16_t Fraquency_t;
 
 extern Fraquency_t FraquencyCurrent;
+extern Fraquency_t FraquencyCurrentBligniy;
 extern Fraquency_t FraquencyInput;
 
 Fraquency_t FraquencyCurrentGet( void );
@@ -91,8 +92,10 @@ void FraquencyCurrentSet( Fraquency_t fraquency );
 void FraquencyTest( void );
 void FraquencyCanalWriteTest ( void );
 uint8_t SignalBligniyOrDalniyTest( void );
+void FraquencyPultOut( void );
 
-extern uint8_t TableFraquencyCurrent[ 5 ];
+extern uint8_t TableFraquencyCurrent[ 8 ];
+extern uint8_t TableSwitchCurrent[ 8 ];
 
 #endif //__ADF_FRAQUENCY_H
 

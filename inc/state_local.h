@@ -80,11 +80,21 @@ ADFStateOutputPins[] =
      MDR_PORTF, adfPortPinNum12, adfPortLogicNull },
 
    { "SVETODIOD",
-     MDR_PORTD, adfPortPinNum8, adfPortLogicNull }
+     MDR_PORTD, adfPortPinNum8, adfPortLogicNull },
+
+   { "TEST_ZAPIS",
+     MDR_PORTC, adfPortPinNum12, adfPortLogicNull },
+
+   { "TEST_CHTENIE",
+     MDR_PORTC, adfPortPinNum13, adfPortLogicNull },
+
+   { "TEST_SHIM",
+     MDR_PORTC, adfPortPinNum14, adfPortLogicNull },
+
 };
 
 const ADFStatePin_t
-ADFStateInputPins[] =
+ADFStateInputPinsADF40[] =
 {
     { "SA3+",
       MDR_PORTF, adfPortPinNum13, adfPortLogicNull },
@@ -142,7 +152,82 @@ ADFStateInputPins[] =
 
 };
 
+const ADFStatePin_t
+ADFStateInputPinsADF351[] =
+{
+    { "SA3+",
+      MDR_PORTF, adfPortPinNum13, adfPortLogicNull },
+
+    { "SA3-",
+      MDR_PORTF, adfPortPinNum14, adfPortLogicNull },
+
+    { "SA4+",
+      MDR_PORTF, adfPortPinNum15, adfPortLogicNull },
+
+   { "SA4-",
+       MDR_PORTD, adfPortPinNum0, adfPortLogicNull },
+
+   { "SA5+",
+       MDR_PORTD, adfPortPinNum1, adfPortLogicNull },
+
+   { "SA5-",
+       MDR_PORTD, adfPortPinNum2, adfPortLogicNull },
+
+   { "«¿œ»—‹",
+       MDR_PORTD, adfPortPinNum3, adfPortLogicNull },
+
+   { " ŒÕ“–ŒÀ‹",
+       MDR_PORTD, adfPortPinNum4, adfPortLogicNull },
+
+   { "“À‘",
+       MDR_PORTD, adfPortPinNum5, adfPortLogicNull },
+
+   { "“À√",
+       MDR_PORTD, adfPortPinNum6, adfPortLogicNull },
+
+   { "DALNIY",
+       MDR_PORTB, adfPortPinNum12, adfPortLogicNull },
+
+   { "BLIGNIY",
+       MDR_PORTB, adfPortPinNum13, adfPortLogicNull },
+
+   { "SHASSY",
+      MDR_PORTB, adfPortPinNum14, adfPortLogicNull },
+
+   { "MARKER",
+      MDR_PORTB, adfPortPinNum15, adfPortLogicNull },
+
+   { "Den/Noch",
+      MDR_PORTB, adfPortPinNum10, adfPortLogicNull },
+
+   { "DPRS AUTOMAT",
+      MDR_PORTB, adfPortPinNum11, adfPortLogicNull },
+
+   { "D0",
+      MDR_PORTC, adfPortPinNum5, adfPortLogicNull },
+
+   { "D1",
+      MDR_PORTC, adfPortPinNum6, adfPortLogicNull },
+
+   { "D2",
+      MDR_PORTC, adfPortPinNum7, adfPortLogicNull },
+
+   { "D3",
+      MDR_PORTC, adfPortPinNum8, adfPortLogicNull },
+
+   { "A0",
+      MDR_PORTC, adfPortPinNum9, adfPortLogicNull },
+
+   { "A1",
+      MDR_PORTC, adfPortPinNum10, adfPortLogicNull },
+
+   { "A2",
+      MDR_PORTC, adfPortPinNum11, adfPortLogicNull },
+
+};
+
 #define ADF_STATE_PINS_OUTPUT_COUNT ( sizeof( ADFStateOutputPins ) / sizeof( ADFStatePin_t ) )
-#define ADF_STATE_PINS_INPUT_COUNT ( sizeof( ADFStateInputPins ) / sizeof( ADFStatePin_t ) )
+#define ADF_STATE_PINS_INPUT_ADF40_COUNT ( sizeof( ADFStateInputPinsADF40 ) / sizeof( ADFStatePin_t ) )
+#define ADF_STATE_PINS_INPUT_ADF351_COUNT ( sizeof( ADFStateInputPinsADF351 ) / sizeof( ADFStatePin_t ) )
 
 
